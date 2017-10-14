@@ -28,9 +28,8 @@
 #else
 #define HEATER_1_PIN      67
 #endif
-
-#define TEMP_1_PIN      5 // ADC channel #, not a PIN #
-
+//bed
+#define TEMP_1_PIN      7 // ADC channel #, not a PIN #  
 //extruders and sensors
 #if NUM_EXTRUDER==1
 #define HEATER_0_PIN        16
