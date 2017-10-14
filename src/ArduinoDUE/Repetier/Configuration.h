@@ -62,7 +62,7 @@
 #define MODEL 1
 #endif
 //to enable communication using wifi module set to 1
-#define ENABLE_WIFI 0
+#define ENABLE_WIFI 1
 //define the wifi serial output
 //on Davinci use Serial
 //on RADDS use Serial1
@@ -74,7 +74,7 @@
 #endif
 #endif
 //if wifi is enabled serial need to slow down a little, this is a delay in ms after a '\n' so normaly after a command or a message
-#define DELAY_BY_LINE 50
+#define DELAY_BY_LINE 10
 #if ENABLE_CLEAN_NOZZLE
   #if DAVINCI==0 
     #define CLEAN_X 20
@@ -362,7 +362,7 @@ controlled by settings in extruder 0 definition. */
 // 100 is AD595
 // 101 is MAX6675
 // 102 is MAX31855
-#define EXT0_TEMPSENSOR_TYPE 5
+#define EXT0_TEMPSENSOR_TYPE 97
 // Analog input pin for reading temperatures or pin enabling SS for MAX6675
 #define EXT0_TEMPSENSOR_PIN TEMP_0_PIN
 // Which pin enables the heater
@@ -374,7 +374,7 @@ controlled by settings in extruder 0 definition. */
 #define EXT0_INVERSE false
 #endif
 #if DAVINCI==1 || DAVINCI==4
-#define EXT0_INVERSE false
+#define EXT0_INVERSE true
 #endif
 #if DAVINCI==2 || DAVINCI==3
 #define EXT0_INVERSE true
@@ -727,8 +727,9 @@ If you have a PTC thermistor instead of a NTC thermistor, keep the adc values in
 #define USER_THERMISTORTABLE1 {{628,1280},{859,1200},{1113,1120},{1382,1040},{1660,960},{1938,880},{2211,800},{2473,720},{2718,640},{2945,560},{3148,480},{3328,400},{3482,320},{3613,240},{3722,160},{3815,80},{3895,0},{3972,-80},{4055,-160}}
 
 /** Number of entries in the user thermistor table 2. Set to 0 to disable it. */
-#define NUM_TEMPS_USERTHERMISTOR2 0
-#define USER_THERMISTORTABLE2  {}
+#define NUM_TEMPS_USERTHERMISTOR2 33
+#define USER_THERMISTORTABLE2  {{68,2400},{78,2320},{90,2240},{105,2160},{122,2080},{143,2000},{168,1920},{199,1840},{236,1760},{281,1680},{336,1600},{402,1520},{483,1440},{579,1360},{695,1280},{830,1200},{987,1120},{1164,1040},{1357,960},{1561,880},{1766,800},{1965,720},{2147,640},{2306,560},{2437,480},{2541,400},{2619,320},{2675,240},{2715,160},{2741,80},{2758,0},{2769,-80},{2775,-160}}
+
 
 #else
 #define NUM_TEMPS_USERTHERMISTOR0 28
@@ -739,7 +740,8 @@ If you have a PTC thermistor instead of a NTC thermistor, keep the adc values in
 #define USER_THERMISTORTABLE1 {{628,1280},{859,1200},{1113,1120},{1382,1040},{1660,960},{1938,880},{2211,800},{2473,720},{2718,640},{2945,560},{3148,480},{3328,400},{3482,320},{3613,240},{3722,160},{3815,80},{3895,0},{3972,-80},{4055,-160}}
 
 /** Number of entries in the user thermistor table 2. Set to 0 to disable it. */
-#define NUM_TEMPS_USERTHERMISTOR2 0
+#define NUM_TEMPS_USERTHERMISTOR2 33
+#define USER_THERMISTORTABLE2  {{68,2400},{78,2320},{90,2240},{105,2160},{122,2080},{143,2000},{168,1920},{199,1840},{236,1760},{281,1680},{336,1600},{402,1520},{483,1440},{579,1360},{695,1280},{830,1200},{987,1120},{1164,1040},{1357,960},{1561,880},{1766,800},{1965,720},{2147,640},{2306,560},{2437,480},{2541,400},{2619,320},{2675,240},{2715,160},{2741,80},{2758,0},{2769,-80},{2775,-160}}    
 #endif
 
 /** If defined, creates a thermistor table at startup.
@@ -764,7 +766,7 @@ The capacitor is for reducing noise from long thermistor cable. If you don't hav
 
 If you need the generic table, uncomment the following define.
 */
-//#define USE_GENERIC_THERMISTORTABLE_1
+#define USE_GENERIC_THERMISTORTABLE_1
 
 /* Some examples for different thermistors:
 
@@ -776,21 +778,21 @@ Honeywell 100K Thermistor (135-104LAG-J01)  : R0 = 100000  T0 = 25  Beta = 3974
 */
 
 /** Reference Temperature */
-#define GENERIC_THERM1_T0 25
+#define GENERIC_THERM1_T0 28.4
 /** Resistance at reference temperature */
-#define GENERIC_THERM1_R0 100000
+#define GENERIC_THERM1_R0 76700
 /** Beta value of thermistor
 
 You can use the beta from the datasheet or compute it yourself.
 See http://reprap.org/wiki/MeasuringThermistorBeta for more details.
 */
-#define GENERIC_THERM1_BETA 4036
+#define GENERIC_THERM1_BETA 4276
 /** Start temperature for generated thermistor table */
 #define GENERIC_THERM1_MIN_TEMP -20
 /** End Temperature for generated thermistor table */
 #define GENERIC_THERM1_MAX_TEMP 300
 #define GENERIC_THERM1_R1 0
-#define GENERIC_THERM1_R2 4700
+#define GENERIC_THERM1_R2 8700
 
 // The same for table 2 and 3 if needed
 
@@ -813,7 +815,7 @@ See http://reprap.org/wiki/MeasuringThermistorBeta for more details.
 #define GENERIC_THERM3_R2 4700
 
 /** Supply voltage to ADC, can be changed by setting ANALOG_REF below to different value. */
-#define GENERIC_THERM_VREF 5
+#define GENERIC_THERM_VREF 3.334
 /** Number of entries in generated table. One entry takes 4 bytes. Higher number of entries increase computation time too.
 Value is used for all generic tables created. */
 #define GENERIC_THERM_NUM_ENTRIES 33

@@ -70,7 +70,7 @@ STEPPER_CURRENT_CONTROL
 #define TEMP_0_PIN     11  
 #define HEATER_1_PIN   8
 // Due analog pin #
-#define TEMP_1_PIN     12  
+#define TEMP_1_PIN     3 
 #define HEATER_2_PIN   9
 // Due analog pin #
 #define TEMP_2_PIN     13

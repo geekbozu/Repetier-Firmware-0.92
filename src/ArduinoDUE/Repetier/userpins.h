@@ -29,12 +29,12 @@
 #define HEATER_1_PIN      67
 #endif
 
-#define TEMP_1_PIN      14 // ADC channel #, not a PIN #
+#define TEMP_1_PIN      5 // ADC channel #, not a PIN #
 
 //extruders and sensors
 #if NUM_EXTRUDER==1
 #define HEATER_0_PIN        16
-#define TEMP_0_PIN      13 // ADC channel #, not a PIN #
+#define TEMP_0_PIN      10 // ADC channel #, not a PIN #
 #define FIL_SENSOR1_PIN          24
 #define ORIG_E0_ENABLE_PIN  123
 #define ORIG_E0_STEP_PIN    122
@@ -42,7 +42,7 @@
 #else
 //for davinci 2.0 reference is left extruder so need to exchange pins compare to 1.0
 #define HEATER_2_PIN        16//HEATER_0_PIN //switch pin value
-#define TEMP_2_PIN      13//    TEMP_0_PIN  //switch pin value
+#define TEMP_2_PIN      10//    TEMP_0_PIN  //switch pin value
 #define HEATER_0_PIN            20
 #define TEMP_0_PIN               9 // ADC channel #, not a PIN #
 #define FIL_SENSOR1_PIN          93
