@@ -1377,6 +1377,15 @@ void Commands::processGCode(GCode *com) {
                 }
             }
             break;
+        case 94: {  // G94
+                if(com->hasF() && com->F > 0.1) {
+                      if(Printer::unitIsInches)
+                              Printer::feedrate = com->F * 0.0042333f * (float)Printer::feedrateMultiply;  // Factor is 25.5/60/100
+                      else
+                              Printer::feedrate = com->F * (float)Printer::feedrateMultiply * 0.00016666666f;
+                }
+            }
+            break;
 #if DRIVE_SYSTEM == DELTA
         case 100: { // G100 Calibrate floor or rod radius
                 // Using manual control, adjust hot end to contact floor.

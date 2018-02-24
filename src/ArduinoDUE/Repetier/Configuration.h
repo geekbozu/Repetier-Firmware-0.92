@@ -911,8 +911,8 @@ In any case, laser only enables while moving. At the end of a move it gets
 automatically disabled. 
 */
 
-#define SUPPORT_LASER 0 // set 1 to enable laser support
-#define LASER_PIN -1    // set to pin enabling laser
+#define SUPPORT_LASER 1 // set 1 to enable laser support
+#define LASER_PIN 24    // set to pin enabling laser
 #define LASER_ON_HIGH 1 // Set 0 if low signal enables laser
 
 // ##########################################################################################

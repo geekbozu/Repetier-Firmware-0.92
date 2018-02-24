@@ -51,6 +51,7 @@ Implemented Codes
 - G90 - Use absolute coordinates
 - G91 - Use relative coordinates
 - G92 - Set current position to coordinates given
+- G94 - Set Feed Rate - UNTESTED
 - G131 - set extruder offset position to 0 - needed for calibration with G132
 - G132 - calibrate endstop positions. Call this, after calling G131 and after centering the extruder holder.
 - G133 - measure steps until max endstops for deltas. Can be used to detect lost steps within tolerances of endstops.
