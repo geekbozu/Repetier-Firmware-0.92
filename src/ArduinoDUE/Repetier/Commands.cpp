@@ -1015,7 +1015,16 @@ void Commands::processGCode(GCode *com) {
                     LaserDriver::laserOn = false;
                 }
 #endif // defined
+#if defined(SUPPORT_LASER) && SUPPORT_LASER
+                if(com->hasS() && Printer::mode == PRINTER_MODE_LASER) {
+                    LaserDriver::intensity = constrain(com->S,0,255);
+                }
+                else {
+                  if(com->hasS()) Printer::setNoDestinationCheck(com->S != 0);
+                }
+#else
                 if(com->hasS()) Printer::setNoDestinationCheck(com->S != 0);
+#endif
                 if(Printer::setDestinationStepsFromGCode(com)) // For X Y Z E F
 #if NONLINEAR_SYSTEM
                     if (!PrintLine::queueNonlinearMove(ALWAYS_CHECK_ENDSTOPS, true, true)) {
@@ -1711,6 +1720,19 @@ void Commands::processMCode(GCode *com) {
             }
 #endif // defined
             break;
+#if defined(SUPPORT_LASER) && SUPPORT_LASER
+        case 12: // Unconditional Laser Power Setting
+                // M12 SXXX 0 = off 255 = Full power
+            if(com->hasS()) {
+                //LaserDriver::intensity = constrain(com->S,0,255);
+                bool laserOn = LaserDriver::laserOn;
+                LaserDriver::laserOn = true;
+                LaserDriver::changeIntensity(constrain(com->S,0,255));
+                Com::printFLN(PSTR("LaserOn:"),(uint8_t)constrain(com->S,0,255));
+                LaserDriver::laserOn = laserOn;
+            }
+            break;
+#endif
 #if SDSUPPORT
         case 20: // M20 - list SD card
 #if JSON_OUTPUT

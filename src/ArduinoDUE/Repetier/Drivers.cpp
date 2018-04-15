@@ -117,27 +117,31 @@ void initializeAllMotorDrivers()
 #endif // NUM_MOTOR_DRIVERS
 
 #if defined(SUPPORT_LASER) && SUPPORT_LASER
-uint8_t LaserDriver::intensity = 255; // Intensity to use for next move queued if we want lasers. This is NOT the current value!
+uint8_t LaserDriver::intensity = 0; // Intensity to use for next move queued if we want lasers. This is NOT the current value!
 bool LaserDriver::laserOn = false;
 void LaserDriver::initialize()
 {
-    if(EVENT_INITALIZE_LASER)
-    {
-#if LASER_PIN > -1
-        SET_OUTPUT(LASER_PIN);
-#endif
-    }
-    changeIntensity(0);
+  Com::printFLN(PSTR("Init Laser"));
+  REG_PMC_PCER1 |= PMC_PCER1_PID36;                     // Enable PWM
+  REG_PIOB_ABSR |= PIO_ABSR_P16;                        // Set PWM pin perhipheral type A or B, in this case B
+  REG_PIOB_PDR |= PIO_PDR_P16;                          // Set PWM pin to an output
+  REG_PWM_CLK = PWM_CLK_PREA(0) | PWM_CLK_DIVA(8);      // Set the PWM clock rate to 10.5MHz (84MHz/8)
+  REG_PWM_CMR0 = PWM_CMR_CPRE_CLKA;                     // Enable single slope PWM and set the clock source as CLKA
+  REG_PWM_CPRD0 = 255;                                  // Set the PWM frequency 10.5MHz/~41kHz = 255
+  REG_PWM_CDTY0 = 0;                                    // Ensure laser is off by default. PWM 0%
+  REG_PWM_ENA = PWM_ENA_CHID0;                          // Enable the PWM channel
+  Com::printFLN(PSTR("End Init"));
+  changeIntensity(0);
 }
 void LaserDriver::changeIntensity(uint8_t newIntensity)
 {
-    if(EVENT_SET_LASER(newIntensity))
-    {
-        // Default implementation
-#if LASER_PIN > -1
-        WRITE(LASER_PIN,(LASER_ON_HIGH ? newIntensity > 199 : newIntensity < 200));
-#endif
-    }
+  if (laserOn || !newIntensity) {
+    REG_PWM_CDTYUPD0 = newIntensity;
+  }
+  else {
+    REG_PWM_CDTYUPD0 = 0;
+    LaserDriver::laserOn = false;
+  }
 }
 #endif // SUPPORT_LASER
 

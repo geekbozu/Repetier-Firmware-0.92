@@ -90,9 +90,10 @@ M106/M107 work only if repurpose fan is enabled, as by default fan is managed by
 
 Custom M Codes
 
-- M3 - Spindle on, Clockwise or Laser on during G1 moves.
+- M3 S<POWER> - Spindle on, Clockwise or Laser on during G1 moves.  Laser power during Laser move
 - M4 - Spindle on, Counterclockwise.
 - M5 - Spindle off, Laser off.
+- M12 S<POWER> - Laser power Force, Turn laser on at power 0..255 Does not update Laser intensity
 - M20  - List SD card
 - M21  - Init SD card
 - M22  - Release SD card
