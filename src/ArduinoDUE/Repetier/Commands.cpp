@@ -1011,10 +1011,16 @@ void Commands::processGCode(GCode *com) {
             {
                 // disable laser for G0 moves
                 bool laserOn = LaserDriver::laserOn;
-                if(com->G == 0 && Printer::mode == PRINTER_MODE_LASER) {
+                if(Printer::mode == PRINTER_MODE_LASER){
+                  if(com->G == 0 && Printer::mode == PRINTER_MODE_LASER) {
                     LaserDriver::laserOn = false;
-                }
+                  }
+                  else {
+                    LaserDriver::laserOn = laserOn;
+                  }
+            }
 #endif // defined
+
 #if defined(SUPPORT_LASER) && SUPPORT_LASER
                 if(com->hasS() && Printer::mode == PRINTER_MODE_LASER) {
                     LaserDriver::intensity = constrain(com->S,0,255);

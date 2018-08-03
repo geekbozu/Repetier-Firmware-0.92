@@ -136,11 +136,14 @@ void LaserDriver::initialize()
 void LaserDriver::changeIntensity(uint8_t newIntensity)
 {
   if (laserOn || !newIntensity) {
+    REG_PWM_DIS = PWM_DIS_CHID0;                          // Disable the PWM channel
     REG_PWM_CDTYUPD0 = newIntensity;
+    REG_PWM_ENA = PWM_ENA_CHID0;                          // Enable the PWM channel
   }
   else {
-    REG_PWM_CDTYUPD0 = 0;
-    LaserDriver::laserOn = false;
+    REG_PWM_DIS = PWM_DIS_CHID0;                          // Disable the PWM channel
+    REG_PWM_CDTYUPD0 = newIntensity;
+    REG_PWM_ENA = PWM_ENA_CHID0;                          // Enable the PWM channel
   }
 }
 #endif // SUPPORT_LASER
