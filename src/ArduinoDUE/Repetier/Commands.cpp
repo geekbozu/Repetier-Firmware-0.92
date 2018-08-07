@@ -1717,6 +1717,7 @@ void Commands::processMCode(GCode *com) {
 #if defined(SUPPORT_LASER) && SUPPORT_LASER
             if(Printer::mode == PRINTER_MODE_LASER) {
                 LaserDriver::laserOn = false;
+                LaserDriver::changeIntensity(0);
             }
 #endif // defined
 #if defined(SUPPORT_CNC) && SUPPORT_CNC
